@@ -203,14 +203,21 @@
         <div class="form-container">
           <div class="form">
             <form action="#" method="POST">
-              <h3>Enter your Art </h3>
+              <h2>Enter your Art </h2><br>
+              <label for="title">Title</label><br>
               <input type="text" class="art-input" name="title" id="title" placeholder="Title">
-              <p></p>
+              <br><br>
+              <label for="artist">Artist</label><br>
               <input type="text" class="art-input" name="artist" id="artist" placeholder="Artist">
-              <p></p>
-              <input type="text" name="description" id="">
-              
-            
+              <br><br>
+              <label for="description">Description</label><br>
+              <textarea type="text" class="art-input-long" name="description" id="description" placeholder="Description"></textarea>
+              <br><br>
+              <input class="file-btn" type="file" id="art" name="art" accept="image/png, image/jpeg, image/jpg" />
+              <br>
+              <small>*Form only accepts png,jpeg and jpg</small>
+              <br><br>
+              <button class="submit-btn">Submit</button>
       
             </form>
           </div>

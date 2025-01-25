@@ -12,3 +12,43 @@
 .btn{
     background-color: rgb(122, 52, 221);
 }
+
+.file-btn{
+    cursor: pointer;
+    width: 45%;
+}
+input, textarea{
+    border-radius: 5px;
+    border: none;
+    padding: 5px 5px;
+    width: 70%;
+}
+textarea{
+    min-height: fit-content;
+}
+input::file-selector-button, .submit-btn{
+    background-color: #1e66da;
+    color: white;
+    border-radius: 5px;
+    padding: 8px 15px;
+    border: #41269b;
+    cursor: pointer;
+}
+input[type="file"]::file-selector-button:hover, .submit-btn:hover {
+    background-color: #3050c5;
+    border: #41269b;
+    transition: 0.25s
+}
+.submit-btn{
+    padding: 10px 20px;
+    font-size: 22px;
+}
+.form{
+    background-color: rgb(37, 43, 52);
+    padding: 50px 50px;
+    border-radius: 10px;
+    color: white;
+}
+label{
+    size: 33px;
+}
