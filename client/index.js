@@ -1,17 +1,21 @@
 
 formCont = document.getElementById('form-container');
 
-/*
+
 document.addEventListener('DOMContentLoaded', () => {
 const artFormContent = localStorage.getItem('artFormContent');
 if (artFormContent) {
     formCont.innerHTML = artFormContent;
+    forms = document.querySelectorAll('.artpics-form');
+    console.log(forms)
+    fetchArt();
 }
 });
-*/
 
 let forms = document.querySelectorAll('.artpics-form');
 console.log(forms)
+
+
 
 document.getElementById('add-art').addEventListener('click', ()=>{
     event.preventDefault()
@@ -50,7 +54,7 @@ document.getElementById('add-art').addEventListener('click', ()=>{
     localStorage.setItem('artFormContent', formCont.innerHTML);
 
     forms = document.querySelectorAll('.artpics-form');
-    console.log(forms)
+    
     
     fetchArt();
 
@@ -79,10 +83,13 @@ function fetchArt(){
 
         if (response.ok){
             const result = await response.json();
-            alert("Yay")
+            alert("Art uploaded successfully!")
+            formCont.innerHTML = '';
+            localStorage.setItem('artFormContent', '');
+            
         }else{
             const error = await response.text();
-            alert("noo", error)
+            alert("Server could not submit form", error)
 
         }
         }catch (error){
