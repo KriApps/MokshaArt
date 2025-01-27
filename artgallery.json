@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Sharing Rice",
+    "artist": "Krisha",
+    "description": "This signifies a cultural appreciation celebration",
+    "path": "client/images/IMG_1973.jpg"
+  },
+  {
+    "title": "Empty",
+    "artist": "Krisha",
+    "description": "The emotion of nothing.",
+    "path": "client/images/IMG_3373.jpg"
+  },
+  {
+    "title": "A Moment",
+    "artist": "Krisha",
+    "description": "This represents the intimacy of one moment. It shows one moment can mean everything.",
+    "path": "client/images/IMG_4030.jpg"
+  }
+]

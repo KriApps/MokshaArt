@@ -12,7 +12,24 @@
 .btn{
     background-color: rgb(122, 52, 221);
 }
-
+.close-btn{
+    
+    margin-left: 98%;
+    margin-top: -10%;
+    color: rgb(225, 11, 11);
+    background: transparent;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    line-height: 18px;
+    cursor: pointer;
+    text-align: center;
+    
+    
+}
 .file-btn{
     cursor: pointer;
     width: 45%;
