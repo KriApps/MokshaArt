@@ -8,6 +8,7 @@ const app = express();
 app.use(express.static(path.join(__dirname + '/client')));
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
 destination: (req, file, cb) => {
@@ -104,12 +105,11 @@ app.get('/artgallery/:id', (req, res) => {
   
 });
 
-/*
+
 //for comments
-app.post('/api/artcomments', (req,res)=>{
-    if (!req.file) {
-        return res.status(400).json({ message: 'No file uploaded.' });
-    }
+app.post('/api/artcomments', upload.none(), (req,res)=>{
+    console.log(req.body)
+
 
     const { commentMaker , comment , artofCommentId} = req.body;
     if (!commentMaker|| !comment || !artofCommentId) {
@@ -117,48 +117,40 @@ app.post('/api/artcomments', (req,res)=>{
     }
     
 
-    fs.readFile('artgallery.json', (err, data) => {
+    fs.readFile('artComments.json', (err, data) => {
+        console.log('reading');
+        
         if (err) {
           console.log(err)
-
-          if (err.code === "ENOENT"){
-            artComments = [artMeta]
-
-            fs.writeFile('artgallery.json', JSON.stringify(artList, null), (err, data)=>{
-                if (err) {
-                    return res.status(500).json({error : 'Cannot save to JSON'})
-                }
-                res.json({message: 'Art metadata stored in JSON file'})
-            })
-          }
-          
+        
         } else {
+            
+            
+          const artCommentsList = JSON.parse(data);
+          console.log('shush',artCommentsList)
+          let idCounter = artCommentsList.length+1 || 1;
+          const artComment = {
+            artCommentId : idCounter,
+            commentMaker : req.body.commentMaker ,
+            comment : req.body.comment,
+            artofCommentId : req.body.artofCommentId
+           }
+          console.log(artComment)
+          artCommentsList.push(artComment);
+          console.log(artComment)
 
-          const artList = JSON.parse(data);
-          let idCounter = artList.length+1 ;
-          const artMeta = {
-            artId : idCounter,
-            title : req.body.title ,
-            artist : req.body.artist,
-            description : req.body.description,
-            imagePath : '/images/'+req.file.filename,
-        }
-          //console.log(idCounter)
-          artList.push(artMeta);
-          
-
-          fs.writeFile('artgallery.json', JSON.stringify(artList, null, 2), (err) => {
+          fs.writeFile('artComments.json', JSON.stringify(artCommentsList, null, 2), (err) => {
             if (err) { 
-                return res.status(500).json({error : 'Cannot save to JSON'})
+                return res.status(500).json({error : 'Cannot save comment to JSON'})
             }
-            res.json({message: 'Art metadata stored in JSON file'})
+            res.json({message: 'Comment and metadata stored in JSON file'})
           });
         }
 
     
 
     })
-})*/
+})
 
 app.use((req, res)=>{
     res.status(404);

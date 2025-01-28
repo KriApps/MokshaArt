@@ -232,6 +232,15 @@ async function viewArt(id){
 
                 </div>
             `;
+
+            commentsForms = document.querySelectorAll('.comments-form');
+            console.log(commentsForms)
+
+            postComments();
+
+
+
+
               
           }else{
               const error = await response.text();
@@ -244,7 +253,7 @@ async function viewArt(id){
       }
     };
 
-/*
+    /*
     document.addEventListener('DOMContentLoaded', () => {
         const artFormContent = localStorage.getItem('artFormContent');
         if (artFormContent) {
@@ -254,7 +263,7 @@ async function viewArt(id){
             fetchArt();
         }
         });
-  
+  */
     let commentsForms = document.querySelectorAll('.comments-form');
     console.log(commentsForms)
 
@@ -280,10 +289,10 @@ async function viewArt(id){
     
             if (response.ok){
                 const result = await response.json();
-                alert("Art uploaded successfully!")
+                alert("Comment uploaded successfully!")
                 //formCont.innerHTML = '';
-                localStorage.setItem('commentFormContent', '');
-                displayAddedArt();
+                //localStorage.setItem('commentFormContent', '');
+                //displayAddedArt();
     
             }else{
                 const error = await response.text();
@@ -298,10 +307,10 @@ async function viewArt(id){
         })
     };
     
-    fetchArt();
+    
 
 
-*/
+
     
 
   
