@@ -220,14 +220,15 @@ async function viewArt(id){
               <br><br>
 
               <div id = "comments-container" class ="comments-container">
-              <h1>Comments</h1><br>
-              
-              <form method = "post" class="comments-form" id = "comments-form">
-                  <input class="comment" id="comment-maker" name="commentMaker" placeholder="Enter your name" type="text"><br><br>
-                  <input class="comment" id = "comment" name="comment" placeholder="What are your thoughts?" type = "text"><br><br>
-                  <input type="hidden" name="artofCommentId" value = "${artObject.artId}">
-                  <button class = "submit-comment" id="submit-comment-btn" type="submit">Send</button>
-              </form>
+                <h1>Comments</h1><br>
+                <div id="comment-error" ></div>
+                <form method = "post" class="comments-form" id = "comments-form">
+                    <input class="comment" id="comment-maker" name="commentMaker" placeholder="Enter your name" type="text"><br><br>
+                    <input class="comment" id = "comment" name="comment" placeholder="What are your thoughts?" type = "text"><br><br>
+                    <input type="hidden" name="artofCommentId" value = "${artObject.artId}">
+                    <button class = "submit-comment" id="submit-comment-btn" type="submit" 
+                    ">Send</button>
+                </form>
               <div id="comments-display" class="comments-display"></div>
 
 
@@ -237,14 +238,16 @@ async function viewArt(id){
           commentsForms = document.querySelectorAll('.comments-form');
           console.log(commentsForms)
 
-          postComments();
+          postComments(`${artObject.artId}`);
 
           document.getElementById('comments-form').addEventListener('submit', function(){
             document.getElementById('comment').value = '';
           })
 
-          let commentsCont = document.querySelector('.comments-display');
-          displayComments(`${artObject.artId}`,commentsCont);
+          
+
+          commentsCont = document.querySelector('.comments-display');
+          displayComments(`${artObject.artId}`);
 
 
 
@@ -261,61 +264,70 @@ async function viewArt(id){
   };
 
     
-    let commentsForms = document.querySelectorAll('.comments-form');
-    console.log(commentsForms)
+let commentsForms = document.querySelectorAll('.comments-form');
 
-    function postComments(){
-      commentsForms.forEach((commentForm)=>{
-          
-          commentForm.addEventListener('submit', async function(event){
-            event.preventDefault();
-            console.log("submitted")
 
+function postComments(id){
+  commentsForms.forEach((commentForm)=>{
+      
+      commentForm.addEventListener('submit', async function(event){
+        event.preventDefault();
+        console.log("submitted")
+
+        
+        const commentFormData = new FormData(commentForm);
+        
+        
+        
+        
+        
+
+        try {
+        
+            const response = await fetch('/artcomments', {
+                method: 'POST',
             
-            const commentFormData = new FormData(commentForm);
+                body : commentFormData
+            });
+
+        if (response.ok){
+            const result = await response.json();
+            console.log("Comment uploaded successfully!");
             
-            console.log('form data', commentFormData)
+            displayComments(id)
             
+
+        }else{
+            const error = await response.text();
+            document.getElementById('comment-error').innerHTML = `<div>All fields must be filled <button id="close-error" class="close-error-btn" onclick = "
+            document.getElementById('comment-error').innerHTML = ''
+            document.getElementById('comment-error').classList.remove('comment-error');;
+            ">x</button> </div>`;
+            document.getElementById('comment-error').classList.add('comment-error');
             
-            try {
-            
-                const response = await fetch('/artcomments', {
-                    method: 'POST',
-                
-                    body : commentFormData
-                });
-    
-            if (response.ok){
-                const result = await response.json();
-                alert("Comment uploaded successfully!")
-                
-    
-            }else{
-                const error = await response.text();
-                alert("Server could not submit form", error)
-    
-            }
-            }catch (error){
-            console.log('error', error)
-            alert("Error submitting form")
-            }
-      })
-      })
-    };
-    
+
+        }
+        }catch (error){
+        console.log('error', error)
+        alert("Error submitting form")
+        }
+  })
+  })
+};
+
   
 
 async function displayComments(id){
   try{
     const response = await fetch(`/comments/${id}`);
-    console.log(id)
+    
     if (response.ok){
         const result = await response.json();
-        console.log('ok')
-        console.log(result)
+        
         
         
         commentsCont = document.querySelector('.comments-display');
+        commentsCont.innerHTML = '';
 
         result.forEach(comment=> {
             commentsCont.innerHTML+=`
@@ -340,40 +352,5 @@ async function displayComments(id){
   }
 };
 
-/*
-async function displayComments(id){
-  try{
-    const response = await fetch(`/comments/${id}`);
-    console.log(id)
-    if (response.ok){
-      const result = await response.json();
-      console.log('ok')
-      console.log(result)
-      
-      
-      commentsCont = document.querySelector('.comments-display');
 
-      
-      commentsCont.innerHTML+=`
-        <div class="artComment" >
-          <p>${comment.comment}</p>
-          <small>-${comment.commentMaker}</small>
-        </div>
 
-      `;
-        
-
-          
-    }else{
-      const error = await response.text();
-      alert("Server could not submit form", error)
-
-    }
-      
-  } catch (error){
-    console.log("error fetching JSON data", error)
-  }
-};
-    
-*/
-  

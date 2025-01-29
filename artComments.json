@@ -1,68 +1,50 @@
 [
   {
     "artCommentId": 1,
-    "commentMaker": "Krisha",
-    "comment": "These are my thoughts",
+    "commentMaker": "new",
+    "comment": "new",
     "artofCommentId": "1"
   },
   {
     "artCommentId": 2,
-    "commentMaker": "Krisha",
-    "comment": "Chauhan",
-    "artofCommentId": "1"
+    "commentMaker": "add",
+    "comment": "add",
+    "artofCommentId": "2"
   },
   {
     "artCommentId": 3,
-    "commentMaker": "Tomiwa",
-    "comment": "She is bhad",
-    "artofCommentId": "5"
+    "commentMaker": "not",
+    "comment": "me",
+    "artofCommentId": "2"
   },
   {
     "artCommentId": 4,
-    "commentMaker": "inf",
-    "comment": "ndle",
+    "commentMaker": "not",
+    "comment": "isnt t",
     "artofCommentId": "2"
   },
   {
     "artCommentId": 5,
-    "commentMaker": "Timi",
-    "comment": "Congrats",
-    "artofCommentId": "9"
+    "commentMaker": "not",
+    "comment": "rf",
+    "artofCommentId": "2"
   },
   {
     "artCommentId": 6,
-    "commentMaker": "jjj",
-    "comment": "ccc",
-    "artofCommentId": "2"
+    "commentMaker": "huntererr",
+    "comment": "jdnfv",
+    "artofCommentId": "6"
   },
   {
     "artCommentId": 7,
-    "commentMaker": "kk",
-    "comment": "kk",
-    "artofCommentId": "1"
+    "commentMaker": "huntererr",
+    "comment": "ok this acc works wtf",
+    "artofCommentId": "6"
   },
   {
     "artCommentId": 8,
-    "commentMaker": "kednio",
-    "comment": "inos",
-    "artofCommentId": "3"
-  },
-  {
-    "artCommentId": 9,
-    "commentMaker": "jnd",
-    "comment": "jcfke",
-    "artofCommentId": "2"
-  },
-  {
-    "artCommentId": 10,
-    "commentMaker": "Tomiwa ",
-    "comment": "She is hella bhad",
+    "commentMaker": "akdcnJBXK",
+    "comment": "CSDJ",
     "artofCommentId": "5"
-  },
-  {
-    "artCommentId": 11,
-    "commentMaker": "jnd",
-    "comment": "helloooo",
-    "artofCommentId": "2"
   }
 ]
