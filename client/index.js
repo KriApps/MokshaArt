@@ -156,38 +156,102 @@ displayArt();
 
 async function displayAddedArt(){
 
-    try{
-      const response = await fetch('/artgallery');
-      
-      if (response.ok){
-          const result = await response.json();
-          
-          const artgallery = document.getElementById('artgallery-container')
+  try{
+    const response = await fetch('/artgallery');
+    
+    if (response.ok){
+        const result = await response.json();
+        
+        const artgallery = document.getElementById('artgallery-container')
 
-          const artObject = result[result.length-1];
+        const artObject = result[result.length-1];
 
-          
-          artgallery.innerHTML += `
-          <div class="col">
-          <div class="card shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" src="${artObject.imagePath}"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" />
-            <div class="card-body">
-              <h2>${artObject.title}</h2>
-              <p class="card-text">${artObject.description}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick = "viewArt('${artObject.artId}');">View</button>
-                </div>
+        
+        artgallery.innerHTML += `
+        <div class="col">
+        <div class="card shadow-sm">
+          <img class="bd-placeholder-img card-img-top" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" src="${artObject.imagePath}"  aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" />
+          <div class="card-body">
+            <h2>${artObject.title}</h2>
+            <p class="card-text">${artObject.description}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick = "viewArt('${artObject.artId}');">View</button>
               </div>
             </div>
           </div>
         </div>
-        `;
+      </div>
+      `;
+
+          
+      }else{
+          const error = await response.text();
+          alert("Server could not submit form", error)
+
+      }
+      
+  } catch (error){
+    console.log("error fetching JSON data", error)
+  }
+};
+
+
+
+async function viewArt(id){
+
+  try{
+      const response = await fetch(`/artgallery/${id}`);
+      
+      if (response.ok){
+          const artObject = await response.json();
+          
+          const artPost = document.getElementById('artPic-container');
+
+          artPost.innerHTML = `
+              <button class = "back-btn" id = "artpic-back-btn" style="font-size: 60px; font-weight : 500" onclick = "
+              displayArt();
+              "><</button>
+              <p style = "font-size: 60px; font-weight : 500" >${artObject.title}</p>
+              <p style = "font-size: 25px; font-weight : 90" >Art by ${artObject.artist}</p>
+              <p>${artObject.description}</p>
+
+              <img  style="width: 50%; height: auto" class="view-artpic" id="view-art" src = "${artObject.imagePath}">
+              <br><br>
+
+              <div id = "comments-container" class ="comments-container">
+              <h1>Comments</h1><br>
+              
+              <form method = "post" class="comments-form" id = "comments-form">
+                  <input class="comment" id="comment-maker" name="commentMaker" placeholder="Enter your name" type="text"><br><br>
+                  <input class="comment" id = "comment" name="comment" placeholder="What are your thoughts?" type = "text"><br><br>
+                  <input type="hidden" name="artofCommentId" value = "${artObject.artId}">
+                  <button class = "submit-comment" id="submit-comment-btn" type="submit">Send</button>
+              </form>
+              <div id="comments-display" class="comments-display"></div>
+
+
+              </div>
+          `;
+
+          commentsForms = document.querySelectorAll('.comments-form');
+          console.log(commentsForms)
+
+          postComments();
+
+          document.getElementById('comments-form').addEventListener('submit', function(){
+            document.getElementById('comment').value = '';
+          })
+
+          let commentsCont = document.querySelector('.comments-display');
+          displayComments(`${artObject.artId}`,commentsCont);
+
+
 
             
         }else{
-            const error = await response.text();
-            alert("Server could not submit form", error)
+          const error = await response.text();
+          alert("Server could not show image", error)
 
         }
         
@@ -196,83 +260,17 @@ async function displayAddedArt(){
     }
   };
 
-  
-
-async function viewArt(id){
-
-    try{
-        const response = await fetch(`/artgallery/${id}`);
-        
-        if (response.ok){
-            const artObject = await response.json();
-            
-            const artPost = document.getElementById('artPic-container');
-
-            artPost.innerHTML = `
-                <button class = "back-btn" id = "artpic-back-btn" style="font-size: 60px; font-weight : 500" onclick = "
-                displayArt();
-                "><</button>
-                <p style = "font-size: 60px; font-weight : 500" >${artObject.title}</p>
-                <p style = "font-size: 25px; font-weight : 90" >Art by ${artObject.artist}</p>
-                <p>${artObject.description}</p>
-
-                <img  style="width: 50%; height: auto" class="view-artpic" id="view-art" src = "${artObject.imagePath}">
-                <br><br>
-
-                <div id = "comments-container" class ="comments-container">
-                <h1>Comments</h1><br>
-                
-                <form method = "post" class="comments-form" id = "comments-form">
-                    <input class="comment" id="comment-maker" name="commentMaker" placeholder="Enter your name" type="text"><br><br>
-                    <input class="comment" id = "comment" name="comment" placeholder="What are your thoughts?" type = "text"><br><br>
-                    <input type="hidden" name="artofCommentId" value = "${artObject.artId}">
-                    <button class = "submit-comment" id="submit-comment-btn" type="submit">Send</button>
-                </form>
-
-
-                </div>
-            `;
-
-            commentsForms = document.querySelectorAll('.comments-form');
-            console.log(commentsForms)
-
-            postComments();
-
-
-
-
-              
-          }else{
-              const error = await response.text();
-              alert("Server could not show image", error)
-  
-          }
-          
-      } catch (error){
-        console.log("error fetching JSON data", error)
-      }
-    };
-
-    /*
-    document.addEventListener('DOMContentLoaded', () => {
-        const artFormContent = localStorage.getItem('artFormContent');
-        if (artFormContent) {
-            formCont.innerHTML = artFormContent;
-            forms = document.querySelectorAll('.artpics-form');
-            console.log(forms)
-            fetchArt();
-        }
-        });
-  */
+    
     let commentsForms = document.querySelectorAll('.comments-form');
     console.log(commentsForms)
 
     function postComments(){
-        commentsForms.forEach((commentForm)=>{
-            
-            commentForm.addEventListener('submit', async function(event){
+      commentsForms.forEach((commentForm)=>{
+          
+          commentForm.addEventListener('submit', async function(event){
             event.preventDefault();
-    
+            console.log("submitted")
+
             
             const commentFormData = new FormData(commentForm);
             
@@ -281,7 +279,7 @@ async function viewArt(id){
             
             try {
             
-                const response = await fetch('/api/artcomments', {
+                const response = await fetch('/artcomments', {
                     method: 'POST',
                 
                     body : commentFormData
@@ -290,9 +288,7 @@ async function viewArt(id){
             if (response.ok){
                 const result = await response.json();
                 alert("Comment uploaded successfully!")
-                //formCont.innerHTML = '';
-                //localStorage.setItem('commentFormContent', '');
-                //displayAddedArt();
+                
     
             }else{
                 const error = await response.text();
@@ -303,14 +299,81 @@ async function viewArt(id){
             console.log('error', error)
             alert("Error submitting form")
             }
-        })
-        })
+      })
+      })
     };
     
+  
+
+async function displayComments(id){
+  try{
+    const response = await fetch(`/comments/${id}`);
+    console.log(id)
+    if (response.ok){
+        const result = await response.json();
+        console.log('ok')
+        console.log(result)
+        
+        
+        commentsCont = document.querySelector('.comments-display');
+
+        result.forEach(comment=> {
+            commentsCont.innerHTML+=`
+              <div class="artComment" >
+                <p>${comment.comment}</p>
+                <small>-${comment.commentMaker}</small>
+              </div>
+
+            `;
+          })
+          
+
+          
+      }else{
+          const error = await response.text();
+          alert("Server could not submit form", error)
+
+      }
+      
+  } catch (error){
+    console.log("error fetching JSON data", error)
+  }
+};
+
+/*
+async function displayComments(id){
+  try{
+    const response = await fetch(`/comments/${id}`);
+    console.log(id)
+    if (response.ok){
+      const result = await response.json();
+      console.log('ok')
+      console.log(result)
+      
+      
+      commentsCont = document.querySelector('.comments-display');
+
+      
+      commentsCont.innerHTML+=`
+        <div class="artComment" >
+          <p>${comment.comment}</p>
+          <small>-${comment.commentMaker}</small>
+        </div>
+
+      `;
+        
+
+          
+    }else{
+      const error = await response.text();
+      alert("Server could not submit form", error)
+
+    }
+      
+  } catch (error){
+    console.log("error fetching JSON data", error)
+  }
+};
     
-
-
-
-    
-
+*/
   

@@ -1,1 +1,68 @@
-[]
+[
+  {
+    "artCommentId": 1,
+    "commentMaker": "Krisha",
+    "comment": "These are my thoughts",
+    "artofCommentId": "1"
+  },
+  {
+    "artCommentId": 2,
+    "commentMaker": "Krisha",
+    "comment": "Chauhan",
+    "artofCommentId": "1"
+  },
+  {
+    "artCommentId": 3,
+    "commentMaker": "Tomiwa",
+    "comment": "She is bhad",
+    "artofCommentId": "5"
+  },
+  {
+    "artCommentId": 4,
+    "commentMaker": "inf",
+    "comment": "ndle",
+    "artofCommentId": "2"
+  },
+  {
+    "artCommentId": 5,
+    "commentMaker": "Timi",
+    "comment": "Congrats",
+    "artofCommentId": "9"
+  },
+  {
+    "artCommentId": 6,
+    "commentMaker": "jjj",
+    "comment": "ccc",
+    "artofCommentId": "2"
+  },
+  {
+    "artCommentId": 7,
+    "commentMaker": "kk",
+    "comment": "kk",
+    "artofCommentId": "1"
+  },
+  {
+    "artCommentId": 8,
+    "commentMaker": "kednio",
+    "comment": "inos",
+    "artofCommentId": "3"
+  },
+  {
+    "artCommentId": 9,
+    "commentMaker": "jnd",
+    "comment": "jcfke",
+    "artofCommentId": "2"
+  },
+  {
+    "artCommentId": 10,
+    "commentMaker": "Tomiwa ",
+    "comment": "She is hella bhad",
+    "artofCommentId": "5"
+  },
+  {
+    "artCommentId": 11,
+    "commentMaker": "jnd",
+    "comment": "helloooo",
+    "artofCommentId": "2"
+  }
+]

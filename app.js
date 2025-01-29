@@ -107,7 +107,8 @@ app.get('/artgallery/:id', (req, res) => {
 
 
 //for comments
-app.post('/api/artcomments', upload.none(), (req,res)=>{
+app.post('/artcomments', upload.none(), (req,res)=>{
+    console.log('adding')
     console.log(req.body)
 
 
@@ -127,7 +128,7 @@ app.post('/api/artcomments', upload.none(), (req,res)=>{
             
             
           const artCommentsList = JSON.parse(data);
-          console.log('shush',artCommentsList)
+          
           let idCounter = artCommentsList.length+1 || 1;
           const artComment = {
             artCommentId : idCounter,
@@ -151,6 +152,43 @@ app.post('/api/artcomments', upload.none(), (req,res)=>{
 
     })
 })
+
+
+app.get('/comments/:id', (req,res)=>{
+    const artofCommentId = parseInt(req.params.id);
+    console.log(artofCommentId)
+
+    console.log('working')
+
+    fs.readFile('artComments.json', (err, data)=>{
+        if (err){
+            return res.status(404).json({error:'File not found'});
+        }else{
+            const allComments = JSON.parse(data);
+            
+            const reqComments = []
+            //return res.json(allComments);
+            
+            allComments.forEach(comment => {
+                
+                if (comment.artofCommentId == artofCommentId){
+                    
+                    reqComments.push(comment);
+                }
+            })
+            console.log(reqComments)
+            
+    
+            if (!reqComments) {
+                return res.status(404).json({ error: 'Comments not found' }); 
+              }
+    
+            return res.json(reqComments)
+        }
+      })
+})
+
+
 
 app.use((req, res)=>{
     res.status(404);
