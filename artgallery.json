@@ -40,5 +40,19 @@
     "artist": "Krisha",
     "description": "Made on Ipad",
     "imagePath": "/images/1738168190505.PNG"
+  },
+  {
+    "artId": 7,
+    "title": "wd",
+    "artist": "dwe",
+    "description": "dwe",
+    "imagePath": "/images/1738265741869.PNG"
+  },
+  {
+    "artId": 8,
+    "title": "w",
+    "artist": "d",
+    "description": "d",
+    "imagePath": "/images/1738267199802.PNG"
   }
 ]

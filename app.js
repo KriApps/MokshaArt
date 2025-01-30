@@ -38,6 +38,7 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
         if (err) {
           console.log(err)
 
+
           
 
           if (err.code === "ENOENT"){
@@ -47,9 +48,10 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
                 if (err) {
                     return res.status(500).json({error : 'Cannot save to JSON'})
                 }
-                res.json({message: 'Art metadata stored in JSON file'})
+                return res.status(201).json({message: 'Art metadata stored in JSON file'})
             })
           }
+          return res.status(404).json({error : 'Cannot find Art Pictures JSON file'})
           
         } else {
 
@@ -62,7 +64,7 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
             description : req.body.description,
             imagePath : '/images/'+req.file.filename,
         }
-          //console.log(idCounter)
+          
           artList.push(artMeta);
           
 
@@ -70,7 +72,7 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
             if (err) { 
                 return res.status(500).json({error : 'Cannot save to JSON'})
             }
-            res.json({message: 'Art metadata stored in JSON file'})
+            return res.status(200).json({message: 'Art metadata stored in JSON file'})
           });
         }
 
@@ -80,7 +82,11 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
 });
 
 app.get('/artgallery', (req, res) => {
-    res.sendFile(path.join(__dirname , 'artgallery.json'));
+    if (!fs.existsSync('artgallery.json')) {
+        return res.status(404).json({ error: 'File not found' });
+      }
+    return res.status(200).sendFile(path.join(__dirname , 'artgallery.json'));
+    
 });
 
 app.get('/artgallery/:id', (req, res) => {
@@ -98,7 +104,7 @@ app.get('/artgallery/:id', (req, res) => {
             return res.status(404).json({ error: 'Art not found' }); 
           }
 
-        return res.json(artObject)
+        return res.status(200).json(artObject)
     }
   })
 
@@ -108,8 +114,7 @@ app.get('/artgallery/:id', (req, res) => {
 
 //for comments
 app.post('/artcomments', upload.none(), (req,res)=>{
-    console.log('adding')
-    console.log(req.body)
+    
 
 
     const { commentMaker , comment , artofCommentId} = req.body;
@@ -119,10 +124,11 @@ app.post('/artcomments', upload.none(), (req,res)=>{
     
 
     fs.readFile('artComments.json', (err, data) => {
-        console.log('reading');
+        
         
         if (err) {
           console.log(err)
+          return res.status(404).json({error: 'File not found'})
         
         } else {
             
@@ -137,15 +143,15 @@ app.post('/artcomments', upload.none(), (req,res)=>{
             artofCommentId : req.body.artofCommentId,
             commentLikes : 0
            }
-          console.log(artComment)
+         
           artCommentsList.push(artComment);
-          console.log(artComment)
+          
 
           fs.writeFile('artComments.json', JSON.stringify(artCommentsList, null, 2), (err) => {
             if (err) { 
                 return res.status(500).json({error : 'Cannot save comment to JSON'})
             }
-            res.json({message: 'Comment and metadata stored in JSON file'})
+            return res.status(201).json({message: 'Comment and metadata stored in JSON file'})
           });
         }
 
@@ -157,9 +163,7 @@ app.post('/artcomments', upload.none(), (req,res)=>{
 
 app.get('/comments/:id', (req,res)=>{
     const artofCommentId = parseInt(req.params.id);
-    console.log(artofCommentId)
-
-    console.log('working')
+    
 
     fs.readFile('artComments.json', (err, data)=>{
         if (err){
@@ -168,7 +172,7 @@ app.get('/comments/:id', (req,res)=>{
             const allComments = JSON.parse(data);
             
             const reqComments = []
-            //return res.json(allComments);
+            
             
             allComments.forEach(comment => {
                 
@@ -177,14 +181,14 @@ app.get('/comments/:id', (req,res)=>{
                     reqComments.push(comment);
                 }
             })
-            console.log(reqComments)
+            
             
     
             if (!reqComments) {
                 return res.status(404).json({ error: 'Comments not found' }); 
               }
     
-            return res.json(reqComments)
+            return res.status(200).json(reqComments)
         }
       })
 })
@@ -193,7 +197,7 @@ app.get('/moreComments/:id', (req,res)=>{
   const artCommentId = parseInt(req.params.id);
   
 
-  console.log('working')
+  
 
   fs.readFile('artComments.json', (err, data)=>{
       if (err){
@@ -203,14 +207,14 @@ app.get('/moreComments/:id', (req,res)=>{
 
           const clickedComment = allComments.find(comment => comment.artCommentId == artCommentId)
         
-          console.log(clickedComment)
+         
           
   
           if (!clickedComment) {
               return res.status(404).json({ error: 'Comments not found' }); 
             }
   
-          return res.json(clickedComment)
+          return res.status(200).json(clickedComment)
       }
     })
 })
@@ -218,38 +222,35 @@ app.get('/moreComments/:id', (req,res)=>{
 app.patch('/addLikeComment/:id', (req,res)=>{
   const artCommentId = parseInt(req.params.id);
   const {likes} = req.body;
-  console.log(req.body)
+  
 
   fs.readFile('artComments.json', (err, data) => {
-    console.log('reading');
+    
     
     if (err) {
       console.log(err)
-      res.status(404).json({error: err})
+      return res.status(404).json({error: err})
     
     } else {
         
       const commentsList = JSON.parse(data);
       
-      commentsList.forEach(comment => {
-        if (comment.artCommentId == artCommentId){
-          const newLikes = comment.commentLikes +1
-          comment.commentLikes = newLikes ;
-          
-          
-        }
-      })
+     
 
-      const likedComment = commentsList.find(comment => comment.artCommentId == artCommentId);
+      const likedComment = commentsList.find(comment => comment.artCommentId === artCommentId);
+      if (!likedComment) {
+        return res.status(404).json({ error: 'Comment not found' });
+      }
+
+      likedComment.commentLikes += 1;
 
       fs.writeFile('artComments.json', JSON.stringify(commentsList, null, 2), (err) => {
         if (err) { 
             return res.status(500).json({error : 'Cannot save comment likes to JSON'})
         }
-        res.status(200).json({ error: 'Comments likes added' }); 
+        return res.status(200).json( likedComment ); 
       });
-      
-      return res.json(likedComment)
+     
     }
   })
 })

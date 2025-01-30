@@ -7,7 +7,7 @@ const artFormContent = localStorage.getItem('artFormContent');
 if (artFormContent) {
     formCont.innerHTML = artFormContent;
     forms = document.querySelectorAll('.artpics-form');
-    console.log(forms)
+    
     fetchArt();
 }
 });
@@ -15,7 +15,7 @@ if (artFormContent) {
 
 
 let forms = document.querySelectorAll('.artpics-form');
-console.log(forms)
+
 
 
 
@@ -72,7 +72,7 @@ function fetchArt(){
         
         const formData = new FormData(form);
         
-        console.log('form data', formData)
+        
         
         
         try {
@@ -85,7 +85,7 @@ function fetchArt(){
 
         if (response.ok){
             const result = await response.json();
-            alert("Art uploaded successfully!")
+            
             formCont.innerHTML = '';
             localStorage.setItem('artFormContent', '');
             displayAddedArt();
@@ -148,7 +148,7 @@ async function displayArt(){
         }
         
     } catch (error){
-      console.log("error fetching JSON data", error)
+      console.log("error fetching Art pictures JSON data", error)
     }
   };
 
@@ -236,7 +236,7 @@ async function viewArt(id){
           `;
 
           commentsForms = document.querySelectorAll('.comments-form');
-          console.log(commentsForms)
+          
 
           postComments(`${artObject.artId}`);
 
@@ -309,7 +309,7 @@ function postComments(id){
         }
         }catch (error){
         console.log('error', error)
-        alert("Error submitting form")
+        alert("Error submitting form, all fields must be filled")
         }
   })
   })
@@ -369,8 +369,7 @@ async function moreComment(id){
         
         const commentDiv = document.getElementById(`artComment${artCommentId}`);
         commentDiv.classList.add('moreComment');
-        console.log(artCommentId)
-        console.log(comment.artCommentId)
+        
         
         commentDiv.innerHTML=`
           <div>
@@ -388,7 +387,7 @@ async function moreComment(id){
           
       }else{
           const error = await response.text();
-          alert("Server could not submit form", error)
+          alert("Server could not show comment", error)
 
       }
       
@@ -401,8 +400,7 @@ async function moreComment(id){
 
 async function likeComment(id,commLikes){
   const artCommentId = parseInt(id);
-  console.log(artCommentId)
-  console.log(id)
+  
   
   const likes = {
     commentLikes : commLikes+1
@@ -419,9 +417,9 @@ async function likeComment(id,commLikes){
 
     
     if (response.ok){
-        console.log(response)
+        
         const likedComment = await response.json();
-        console.log(likedComment);
+        
 
         const commDiv = document.getElementById(`artComment${artCommentId}`);
       
@@ -443,6 +441,7 @@ async function likeComment(id,commLikes){
       }
       
   } catch (error){
+    alert("Error adding like");
     console.log("error adding like", error);
   }
 }

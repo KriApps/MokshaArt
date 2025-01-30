@@ -1,44 +1,65 @@
 [
   {
     "artCommentId": 1,
-    "commentMaker": "new comment ",
-    "comment": "new",
+    "commentMaker": "Krisha",
+    "comment": "Niceee",
     "artofCommentId": "1",
     "commentLikes": 6
   },
   {
     "artCommentId": 2,
-    "commentMaker": "new comment ",
-    "comment": "nn",
+    "commentMaker": "Jignesh",
+    "comment": "Very cool",
     "artofCommentId": "1",
-    "commentLikes": 2
+    "commentLikes": 4
   },
   {
     "artCommentId": 3,
-    "commentMaker": "new comment ",
-    "comment": "klnn",
-    "artofCommentId": "1",
-    "commentLikes": 2
+    "commentMaker": "dd",
+    "comment": "sdc",
+    "artofCommentId": "10",
+    "commentLikes": 1
   },
   {
     "artCommentId": 4,
-    "commentMaker": "hm",
-    "comment": "let's see",
-    "artofCommentId": "2",
-    "commentLikes": 0
+    "commentMaker": "xs",
+    "comment": "xs",
+    "artofCommentId": "1",
+    "commentLikes": 1
   },
   {
     "artCommentId": 5,
-    "commentMaker": "k",
-    "comment": "beautiful",
-    "artofCommentId": "3",
-    "commentLikes": 2
+    "commentMaker": "d",
+    "comment": "d",
+    "artofCommentId": "1",
+    "commentLikes": 1
   },
   {
     "artCommentId": 6,
-    "commentMaker": "jeje",
-    "comment": "love me",
+    "commentMaker": "dw",
+    "comment": "wd",
     "artofCommentId": "6",
     "commentLikes": 1
+  },
+  {
+    "artCommentId": 7,
+    "commentMaker": "kjb",
+    "comment": "jj",
+    "artofCommentId": "1",
+    "commentLikes": 1
+  },
+  {
+    "artCommentId": 8,
+    "commentMaker": "krish",
+    "comment": "cool",
+    "artofCommentId": "8",
+    "commentLikes": 1
+  },
+  {
+    "artCommentId": 9,
+    "commentMaker": "does ",
+    "comment": "this work",
+    "artofCommentId": "1",
+    "commentLikes": 0
   }
 ]
