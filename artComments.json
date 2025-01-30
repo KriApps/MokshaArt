@@ -4,20 +4,41 @@
     "commentMaker": "new comment ",
     "comment": "new",
     "artofCommentId": "1",
-    "commentLikes": 0
+    "commentLikes": 6
   },
   {
     "artCommentId": 2,
     "commentMaker": "new comment ",
     "comment": "nn",
     "artofCommentId": "1",
-    "commentLikes": 0
+    "commentLikes": 2
   },
   {
     "artCommentId": 3,
     "commentMaker": "new comment ",
     "comment": "klnn",
     "artofCommentId": "1",
+    "commentLikes": 2
+  },
+  {
+    "artCommentId": 4,
+    "commentMaker": "hm",
+    "comment": "let's see",
+    "artofCommentId": "2",
     "commentLikes": 0
+  },
+  {
+    "artCommentId": 5,
+    "commentMaker": "k",
+    "comment": "beautiful",
+    "artofCommentId": "3",
+    "commentLikes": 2
+  },
+  {
+    "artCommentId": 6,
+    "commentMaker": "jeje",
+    "comment": "love me",
+    "artofCommentId": "6",
+    "commentLikes": 1
   }
 ]

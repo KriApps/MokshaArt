@@ -191,5 +191,6 @@ label{
     background-color: pink;
     transition: 1.5s;
     font-size: 22px;
+    cursor:auto;
 
 }

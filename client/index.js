@@ -331,12 +331,14 @@ async function displayComments(id){
 
         result.forEach(comment=> {
             commentsCont.innerHTML+=`
-              <button class="artComment" id = "artComment${comment.artCommentId}" onclick  ="
+            <div id = "artComment${comment.artCommentId}">
+              <button class="artComment"  onclick  ="
               moreComment(${comment.artCommentId})
               ">
                 <p>${comment.comment}</p>
                 <small>-${comment.commentMaker}</small>
               </button>
+            </div>
 
             `;
           })
@@ -367,13 +369,16 @@ async function moreComment(id){
         
         const commentDiv = document.getElementById(`artComment${artCommentId}`);
         commentDiv.classList.add('moreComment');
-
+        console.log(artCommentId)
+        console.log(comment.artCommentId)
         
         commentDiv.innerHTML=`
           <div>
             <p>${comment.comment}</p>
             <small>-${comment.commentMaker}</small><br>
-            <button class="like-btn"><small>${comment.commentLikes}♡</small></button>
+            <button class="like-btn" onclick = "
+              likeComment(${comment.artCommentId}, ${comment.commentLikes})
+            "><small >${comment.commentLikes}♡</small></button>
           </div>
 
         `;
@@ -394,20 +399,41 @@ async function moreComment(id){
 }
 
 
-function likeComment(id){
+async function likeComment(id,commLikes){
   const artCommentId = parseInt(id);
-
-  document.querySelectorAll('.like-btn').forEach(likeBtn => {addEventListener('click', async function(){
-
+  console.log(artCommentId)
+  console.log(id)
+  
+  const likes = {
+    commentLikes : commLikes+1
+  }
   
   try{
     const response = await fetch(`/addLikeComment/${artCommentId}`,{
-      method: "PUT"
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(likes) 
     });
+
     
     if (response.ok){
         console.log(response)
-       
+        const likedComment = await response.json();
+        console.log(likedComment);
+
+        const commDiv = document.getElementById(`artComment${artCommentId}`);
+      
+        
+        commDiv.innerHTML=`
+          <div>
+            <p>${likedComment.comment}</p>
+            <small>-${likedComment.commentMaker}</small><br>
+            <button class="like-btn" style="cursor:auto"><small>${likedComment.commentLikes}♥</small></button>
+          </div>
+
+        `;
 
           
       }else{
@@ -419,7 +445,5 @@ function likeComment(id){
   } catch (error){
     console.log("error adding like", error);
   }
-})
-})
-};
+}
 

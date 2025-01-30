@@ -215,6 +215,46 @@ app.get('/moreComments/:id', (req,res)=>{
     })
 })
 
+app.patch('/addLikeComment/:id', (req,res)=>{
+  const artCommentId = parseInt(req.params.id);
+  const {likes} = req.body;
+  console.log(req.body)
+
+  fs.readFile('artComments.json', (err, data) => {
+    console.log('reading');
+    
+    if (err) {
+      console.log(err)
+      res.status(404).json({error: err})
+    
+    } else {
+        
+      const commentsList = JSON.parse(data);
+      
+      commentsList.forEach(comment => {
+        if (comment.artCommentId == artCommentId){
+          const newLikes = comment.commentLikes +1
+          comment.commentLikes = newLikes ;
+          
+          
+        }
+      })
+
+      const likedComment = commentsList.find(comment => comment.artCommentId == artCommentId);
+
+      fs.writeFile('artComments.json', JSON.stringify(commentsList, null, 2), (err) => {
+        if (err) { 
+            return res.status(500).json({error : 'Cannot save comment likes to JSON'})
+        }
+        res.status(200).json({ error: 'Comments likes added' }); 
+      });
+      
+      return res.json(likedComment)
+    }
+  })
+})
+
+
 app.use((req, res)=>{
     res.status(404);
     res.send(`<h1>Error 404: Resource not found</h1>`);
