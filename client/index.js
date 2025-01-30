@@ -331,10 +331,12 @@ async function displayComments(id){
 
         result.forEach(comment=> {
             commentsCont.innerHTML+=`
-              <div class="artComment" >
+              <button class="artComment" id = "artComment${comment.artCommentId}" onclick  ="
+              moreComment(${comment.artCommentId})
+              ">
                 <p>${comment.comment}</p>
                 <small>-${comment.commentMaker}</small>
-              </div>
+              </button>
 
             `;
           })
@@ -352,5 +354,72 @@ async function displayComments(id){
   }
 };
 
+async function moreComment(id){
+  const artCommentId = parseInt(id);
 
+  try{
+    const response = await fetch(`/moreComments/${id}`);
+    
+    if (response.ok){
+        const comment = await response.json();
+        
+        
+        
+        const commentDiv = document.getElementById(`artComment${artCommentId}`);
+        commentDiv.classList.add('moreComment');
+
+        
+        commentDiv.innerHTML=`
+          <div>
+            <p>${comment.comment}</p>
+            <small>-${comment.commentMaker}</small><br>
+            <button class="like-btn"><small>${comment.commentLikes}♡</small></button>
+          </div>
+
+        `;
+          
+          
+
+          
+      }else{
+          const error = await response.text();
+          alert("Server could not submit form", error)
+
+      }
+      
+  } catch (error){
+    console.log("error fetching JSON data", error)
+  }
+
+}
+
+
+function likeComment(id){
+  const artCommentId = parseInt(id);
+
+  document.querySelectorAll('.like-btn').forEach(likeBtn => {addEventListener('click', async function(){
+
+  
+  try{
+    const response = await fetch(`/addLikeComment/${artCommentId}`,{
+      method: "PUT"
+    });
+    
+    if (response.ok){
+        console.log(response)
+       
+
+          
+      }else{
+        const error = await response.text();
+        console.log("Like could not be added", error);
+
+      }
+      
+  } catch (error){
+    console.log("error adding like", error);
+  }
+})
+})
+};
 

@@ -137,7 +137,7 @@ label{
     
 }
 
-.artComment{
+.artComment, .moreComment{
     margin-bottom: 3%;
     padding: 10px 10px;
     border-radius: 5px;
@@ -179,4 +179,17 @@ label{
     position: absolute;
     margin-left: 20%;
     
+}
+
+.like-btn{
+    border: none;
+    background-color: transparent;
+}
+
+.moreComment{
+    padding-bottom: 7% ;
+    background-color: pink;
+    transition: 1.5s;
+    font-size: 22px;
+
 }

@@ -134,7 +134,8 @@ app.post('/artcomments', upload.none(), (req,res)=>{
             artCommentId : idCounter,
             commentMaker : req.body.commentMaker ,
             comment : req.body.comment,
-            artofCommentId : req.body.artofCommentId
+            artofCommentId : req.body.artofCommentId,
+            commentLikes : 0
            }
           console.log(artComment)
           artCommentsList.push(artComment);
@@ -188,7 +189,31 @@ app.get('/comments/:id', (req,res)=>{
       })
 })
 
+app.get('/moreComments/:id', (req,res)=>{
+  const artCommentId = parseInt(req.params.id);
+  
 
+  console.log('working')
+
+  fs.readFile('artComments.json', (err, data)=>{
+      if (err){
+          return res.status(404).json({error:'File not found'});
+      }else{
+          const allComments = JSON.parse(data);
+
+          const clickedComment = allComments.find(comment => comment.artCommentId == artCommentId)
+        
+          console.log(clickedComment)
+          
+  
+          if (!clickedComment) {
+              return res.status(404).json({ error: 'Comments not found' }); 
+            }
+  
+          return res.json(clickedComment)
+      }
+    })
+})
 
 app.use((req, res)=>{
     res.status(404);
