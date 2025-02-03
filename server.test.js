@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('./app');
 const fs = require('fs');
 const path = require('path');
-const { text } = require('express');
+
 
 
 
@@ -42,8 +42,8 @@ describe('Test Moksha Art Services', ()=>{
 
     
 
-    test('GET /artgallery returns status of 200 and json file', ()=>{
-        return  request(app)
+    test('GET /artgallery returns status of 200 and json file', async()=>{
+        await request(app)
         .get('/artgallery')
         .expect(200)
         .expect('Content-Type', /json/);
@@ -51,14 +51,14 @@ describe('Test Moksha Art Services', ()=>{
 
     
 
-    test('GET /artgallery returns status of 404 and json error when file cannot be found', ()=>{
+    test('GET /artgallery returns status of 404 and json error when file cannot be found', async()=>{
         const originalArtFile = path.join(__dirname, 'artgallery.json');
         const tempArtFile = path.join(__dirname, 'artgallery.json.temp');
 
         fs.renameSync(originalArtFile, tempArtFile);
         
         try{
-            return  request(app)
+            return request(app)
             .get('/artgallery')
             .expect(200)
             .expect('Content-Type', /json/);
@@ -68,28 +68,28 @@ describe('Test Moksha Art Services', ()=>{
     });
     
 
-    test('GET /artgallery/:id returns status of 200 and json object', ()=>{
-        return  request(app)
+    test('GET /artgallery/:id returns status of 200 and json object', async()=>{
+        await  request(app)
         .get('/artgallery/1')
         .expect(200)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /artgallery/:id returns status of 404 and json object with erroneous data of under the starting id', ()=>{
-        return  request(app)
+    test('GET /artgallery/:id returns status of 404 and json object with erroneous data of under the starting id', async()=>{
+        await request(app)
         .get('/artgallery/0')
         .expect(404)
         .expect('Content-Type', /json/);
     });
-    test('GET /artgallery/:id returns status of 404 and json object with erroneous data of over available ids', ()=>{
-        return  request(app)
+    test('GET /artgallery/:id returns status of 404 and json object with erroneous data of over available ids', async()=>{
+        await request(app)
         .get('/artgallery/999999')
         .expect(404)
         .expect('Content-Type', /json/);
     });
-    test('GET /artgallery/:id returns status of 200 and json object when id is boundary', ()=>{
+    test('GET /artgallery/:id returns status of 200 and json object when id is boundary', async()=>{
         
-        return  request(app)
+        await request(app)
         .get('/artgallery/1')
         .expect(200)
         .expect('Content-Type', /json/);
@@ -119,65 +119,65 @@ describe('Test Moksha Art Services', ()=>{
         
     });
 
-    test('GET /comments/:id returns status of 200 and json objec when valid id is entered', ()=>{
-        return  request(app)
+    test('GET /comments/:id returns status of 200 and json objec when valid id is entered', async()=>{
+        await  request(app)
         .get('/comments/1')
         .expect(200)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /comments/:id returns status of 404 and json object with erroneous data of under the starting id', ()=>{
-        return  request(app)
+    test('GET /comments/:id returns status of 404 and json object with erroneous data of under the starting id',async ()=>{
+        await request(app)
         .get('/comments/0')
         .expect(404)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /comments/:id returns status of 404 and json object with erroneous data of over available ids', ()=>{
-        return  request(app)
+    test('GET /comments/:id returns status of 404 and json object with erroneous data of over available ids', async ()=>{
+        await request(app)
         .get('/comments/999999')
         .expect(404)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /comments/:id returns status of 200 and json object when id is boundary', ()=>{
+    test('GET /comments/:id returns status of 200 and json object when id is boundary', async()=>{
         const data = fs.readFileSync('artComments.json', 'utf8' )
         const artCommentsList = JSON.parse(data);
         const maxId = artCommentsList.length;
 
-        return  request(app)
+        await request(app)
         .get(`/comments/${maxId}`)
         .expect(200)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /morecomments/:id returns status of 200 and json object when valid id is entered', ()=>{
-        return  request(app)
+    test('GET /morecomments/:id returns status of 200 and json object when valid id is entered', async()=>{
+        await request(app)
         .get('/morecomments/1')
         .expect(200)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /morecomments/:id returns status of 404 and json object with erroneous data of under the starting id', ()=>{
-        return  request(app)
+    test('GET /morecomments/:id returns status of 404 and json object with erroneous data of under the starting id', async()=>{
+        await request(app)
         .get('/morecomments/0')
         .expect(404)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /morecomments/:id returns status of 404 and json object with erroneous data of over available ids', ()=>{
-        return  request(app)
+    test('GET /morecomments/:id returns status of 404 and json object with erroneous data of over available ids', async()=>{
+        await request(app)
         .get('/morecomments/999999')
         .expect(404)
         .expect('Content-Type', /json/);
     });
 
-    test('GET /morecomments/:id returns status of 200 and json object when id is boundary', ()=>{  
+    test('GET /morecomments/:id returns status of 200 and json object when id is boundary', async()=>{  
         const data = fs.readFileSync('artComments.json', 'utf8' )
         const artCommentsList = JSON.parse(data);
         const maxId = artCommentsList.length;
 
-        return  request(app)
+        await request(app)
         .get(`/morecomments/${maxId}`)
         .expect(200)
         .expect('Content-Type', /json/);

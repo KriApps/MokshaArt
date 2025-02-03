@@ -409,11 +409,8 @@ async function likeComment(id,commLikes){
   
   try{
     const response = await fetch(`/addLikeComment/${artCommentId}`,{
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(likes) 
+      method: 'PATCH'
+      
     });
 
     

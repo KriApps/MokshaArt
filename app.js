@@ -34,6 +34,8 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
     }
     
 
+    
+
     fs.readFile('artgallery.json', (err, data) => {
         if (err) {
           console.log(err)
@@ -121,52 +123,52 @@ app.post('/artcomments', upload.none(), (req,res)=>{
     
 
 
-    const { commentMaker , comment , artofCommentId} = req.body;
-    if (!commentMaker|| !comment || !artofCommentId) {
-        return res.status(400).json({ error: 'All fields must be filled out' });
-    }
+  const { commentMaker , comment , artofCommentId} = req.body;
+  if (!commentMaker|| !comment || !artofCommentId) {
+      return res.status(400).json({ error: 'All fields must be filled out' });
+  }
+  
+
+  fs.readFile('artComments.json', (err, data) => {
+      
+      
+    if (err) {
+      console.log(err)
+      
     
-
-    fs.readFile('artComments.json', (err, data) => {
+    } else {
         
         
-        if (err) {
-          console.log(err)
-          
-        
-        } else {
-            
-            
-          const artCommentsList = JSON.parse(data);
-          
-          let idCounter = artCommentsList.length+1 || 1;
-          const artComment = {
-            artCommentId : idCounter,
-            commentMaker : req.body.commentMaker ,
-            comment : req.body.comment,
-            artofCommentId : req.body.artofCommentId,
-            commentLikes : 0
-           }
-         
-          artCommentsList.push(artComment);
-          
-
-          fs.writeFile('artComments.json', JSON.stringify(artCommentsList, null, 2), (err) => {
-            if (err) { 
-                return res.status(500).json({error : 'Cannot save comment to JSON'})
-            }
-            return res.status(200).json({message: 'Comment and metadata stored in JSON file'})
-          });
+      const artCommentsList = JSON.parse(data);
+      
+      let idCounter = artCommentsList.length+1 || 1;
+      const artComment = {
+        artCommentId : idCounter,
+        commentMaker : req.body.commentMaker ,
+        comment : req.body.comment,
+        artofCommentId : req.body.artofCommentId,
+        commentLikes : 0
         }
+      
+      artCommentsList.push(artComment);
+      
 
-    
+      fs.writeFile('artComments.json', JSON.stringify(artCommentsList, null, 2), (err) => {
+        if (err) { 
+            return res.status(500).json({error : 'Cannot save comment to JSON'})
+        }
+        return res.status(200).json({message: 'Comment and metadata stored in JSON file'})
+      });
+    }
 
-    })
+
+
+  })
 })
 
 
-app.get('/comments/:id', (req,res)=>{
-    const artofCommentId = parseInt(req.params.id);
+app.get('/comments/:artofCommentId', (req,res)=>{
+    const artofCommentId = parseInt(req.params.artofCommentId);
     
 
     fs.readFile('artComments.json', (err, data)=>{
@@ -215,7 +217,7 @@ app.get('/moreComments/:id', (req,res)=>{
           
   
           if (!clickedComment) {
-              return res.status(404).json({ error: 'Comments not found' }); 
+              return res.status(404).json({ error: 'Comment not found' }); 
             }
   
           return res.status(200).json(clickedComment)
@@ -225,7 +227,7 @@ app.get('/moreComments/:id', (req,res)=>{
 
 app.patch('/addLikeComment/:id', (req,res)=>{
   const artCommentId = parseInt(req.params.id);
-  const {likes} = req.body;
+  
   
 
   fs.readFile('artComments.json', (err, data) => {
