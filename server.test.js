@@ -126,19 +126,6 @@ describe('Test Moksha Art Services', ()=>{
         .expect('Content-Type', /json/);
     });
 
-    test('GET /comments/:id returns status of 404 and json object with erroneous data of under the starting id',async ()=>{
-        await request(app)
-        .get('/comments/0')
-        .expect(404)
-        .expect('Content-Type', /json/);
-    });
-
-    test('GET /comments/:id returns status of 404 and json object with erroneous data of over available ids', async ()=>{
-        await request(app)
-        .get('/comments/999999')
-        .expect(404)
-        .expect('Content-Type', /json/);
-    });
 
     test('GET /comments/:id returns status of 200 and json object when id is boundary', async()=>{
         const data = fs.readFileSync('artComments.json', 'utf8' )

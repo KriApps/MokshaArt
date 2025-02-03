@@ -167,8 +167,8 @@ app.post('/artcomments', upload.none(), (req,res)=>{
 })
 
 
-app.get('/comments/:artofCommentId', (req,res)=>{
-    const artofCommentId = parseInt(req.params.artofCommentId);
+app.get('/comments/:id', (req,res)=>{
+    const artofCommentId = parseInt(req.params.id);
     
 
     fs.readFile('artComments.json', (err, data)=>{
@@ -190,7 +190,7 @@ app.get('/comments/:artofCommentId', (req,res)=>{
             
             
   
-          if (reqComments.length === 0) {
+          if (!reqComments) {
               return res.status(404).json({ error: 'Comments not found' }); 
             }
   

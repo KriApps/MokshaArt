@@ -348,7 +348,7 @@ async function displayComments(id){
           
       }else{
           const error = await response.text();
-          alert("Server could not submit form", error)
+          console.log("Server could not show comments", error)
 
       }
       
