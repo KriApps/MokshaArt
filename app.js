@@ -46,9 +46,9 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
 
             fs.writeFile('artgallery.json', JSON.stringify(artList, null), (err, data)=>{
                 if (err) {
-                    return res.status(500).json({error : 'Cannot save to JSON'})
+                    console.log(err)
                 }
-                return res.status(201).json({message: 'Art metadata stored in JSON file'})
+                return res.status(200).json({message: 'Art metadata stored in JSON file'})
             })
           }
           return res.status(404).json({error : 'Cannot find Art Pictures JSON file'})
@@ -82,10 +82,14 @@ app.post('/api/artpics', upload.single('art'),(req,res)=>{
 });
 
 app.get('/artgallery', (req, res) => {
-    if (!fs.existsSync('artgallery.json')) {
+    const artgalleryFile = path.join(__dirname , 'artgallery.json');
+
+    
+
+    if (artgalleryFile === undefined ) {
         return res.status(404).json({ error: 'File not found' });
       }
-    return res.status(200).sendFile(path.join(__dirname , 'artgallery.json'));
+    return res.status(200).sendFile(artgalleryFile);
     
 });
 
@@ -128,7 +132,7 @@ app.post('/artcomments', upload.none(), (req,res)=>{
         
         if (err) {
           console.log(err)
-          return res.status(404).json({error: 'File not found'})
+          
         
         } else {
             
@@ -151,7 +155,7 @@ app.post('/artcomments', upload.none(), (req,res)=>{
             if (err) { 
                 return res.status(500).json({error : 'Cannot save comment to JSON'})
             }
-            return res.status(201).json({message: 'Comment and metadata stored in JSON file'})
+            return res.status(200).json({message: 'Comment and metadata stored in JSON file'})
           });
         }
 
@@ -171,7 +175,7 @@ app.get('/comments/:id', (req,res)=>{
         }else{
             const allComments = JSON.parse(data);
             
-            const reqComments = []
+            const reqComments = [];
             
             
             allComments.forEach(comment => {
@@ -183,12 +187,12 @@ app.get('/comments/:id', (req,res)=>{
             })
             
             
-    
-            if (!reqComments) {
-                return res.status(404).json({ error: 'Comments not found' }); 
-              }
-    
-            return res.status(200).json(reqComments)
+  
+          if (reqComments.length === 0) {
+              return res.status(404).json({ error: 'Comments not found' }); 
+            }
+  
+          return res.status(200).json(reqComments)
         }
       })
 })
@@ -201,7 +205,7 @@ app.get('/moreComments/:id', (req,res)=>{
 
   fs.readFile('artComments.json', (err, data)=>{
       if (err){
-          return res.status(404).json({error:'File not found'});
+          console.log(err)
       }else{
           const allComments = JSON.parse(data);
 
@@ -261,5 +265,4 @@ app.use((req, res)=>{
     res.send(`<h1>Error 404: Resource not found</h1>`);
 })
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+module.exports = app;

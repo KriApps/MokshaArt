@@ -240,7 +240,8 @@ async function viewArt(id){
 
           postComments(`${artObject.artId}`);
 
-          document.getElementById('comments-form').addEventListener('submit', function(){
+          document.getElementById('comments-form').addEventListener('submit', function(event){
+            event.preventDefault();
             document.getElementById('comment').value = '';
           })
 

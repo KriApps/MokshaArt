@@ -4,7 +4,7 @@
     "commentMaker": "Krisha",
     "comment": "Niceee",
     "artofCommentId": "1",
-    "commentLikes": 6
+    "commentLikes": 7
   },
   {
     "artCommentId": 2,
@@ -46,7 +46,7 @@
     "commentMaker": "kjb",
     "comment": "jj",
     "artofCommentId": "1",
-    "commentLikes": 1
+    "commentLikes": 2
   },
   {
     "artCommentId": 8,
@@ -60,6 +60,111 @@
     "commentMaker": "does ",
     "comment": "this work",
     "artofCommentId": "1",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 10,
+    "commentMaker": "krish",
+    "comment": "culturallllll",
+    "artofCommentId": "1",
+    "commentLikes": 1
+  },
+  {
+    "artCommentId": 11,
+    "commentMaker": "krisha",
+    "comment": "i pray this works",
+    "artofCommentId": "1",
+    "commentLikes": 1
+  },
+  {
+    "artCommentId": 12,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "12",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 13,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "13",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 14,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "14",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 15,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "15",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 16,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "16",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 17,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "17",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 18,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "18",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 19,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "19",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 20,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "20",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 21,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "21",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 22,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "22",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 23,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "23",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 24,
+    "commentMaker": "Test commentMaker",
+    "comment": "Test comment",
+    "artofCommentId": "24",
     "commentLikes": 0
   }
 ]
