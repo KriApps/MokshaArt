@@ -33,5 +33,12 @@
     "artist": "Krisha",
     "description": "The silence of a ray of light.",
     "imagePath": "/images/IMG_5703.jpg"
+  },
+  {
+    "artId": 6,
+    "title": "new title",
+    "artist": "new artist",
+    "description": "new description",
+    "imagePath": "/images/1738627556694.jpg"
   }
 ]

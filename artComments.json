@@ -1,3 +1,37 @@
 [
-  
+  {
+    "artCommentId": 1,
+    "commentMaker": "anon",
+    "comment": "very beautifullll",
+    "artofCommentId": "2",
+    "commentLikes": 2
+  },
+  {
+    "artCommentId": 2,
+    "commentMaker": "new",
+    "comment": "cool!",
+    "artofCommentId": "3",
+    "commentLikes": 1
+  },
+  {
+    "artCommentId": 3,
+    "commentMaker": "new",
+    "comment": "interesting",
+    "artofCommentId": "3",
+    "commentLikes": 1
+  },
+  {
+    "artCommentId": 4,
+    "commentMaker": "aisha",
+    "comment": "nice",
+    "artofCommentId": "2",
+    "commentLikes": 0
+  },
+  {
+    "artCommentId": 5,
+    "commentMaker": "aisha",
+    "comment": "cool",
+    "artofCommentId": "2",
+    "commentLikes": 1
+  }
 ]
